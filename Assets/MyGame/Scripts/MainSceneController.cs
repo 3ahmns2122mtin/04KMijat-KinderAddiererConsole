@@ -20,7 +20,7 @@ public class MainSceneController : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log("Frphe Weihnachten");
+        Debug.Log("Frohe Weihnachten");
          
     }
 
