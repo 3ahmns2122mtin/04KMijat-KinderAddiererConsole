@@ -6,7 +6,7 @@ public class MainSceneController : MonoBehaviour
 {
     [SerializeField] private InputField inputFieldTermA, inputFieldTermB;
     [SerializeField] private Text txtResult;
-    private int termA, termB;
+    private int termA = 0, termB = 0;
 
     public int CheckAddition(int summandA, int summandB)
     {
@@ -26,18 +26,54 @@ public class MainSceneController : MonoBehaviour
 
     public void GetValues()
     {
-        if(Regex.IsMatch(inputFieldTermA.text, @"^\d+$") && Regex.IsMatch(inputFieldTermB.text, @"^\d+$")) 
+        // if(Regex.IsMatch(inputFieldTermA.text, @"^\d+$") && Regex.IsMatch(inputFieldTermB.text, @"^\d+$")) 
         //überprüft ob in den Inputboxxen ein Zahlenwert steht
+        /*
+         {
+             termA = int.Parse(inputFieldTermA.text);
+             termB = int.Parse(inputFieldTermB.text);
+         }
+       else
+         {
+             termA = 0;
+             termB = 0;
+         }
+         */
+        try
         {
             termA = int.Parse(inputFieldTermA.text);
+        }
+        catch (System.Exception)
+        {
+
+            inputFieldTermA.GetComponent<InputField>().image.color = Color.red;
+            inputFieldTermA.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "falsch";
+            inputFieldTermA.text = "";
+
+        }
+        try
+        {
             termB = int.Parse(inputFieldTermB.text);
         }
-        else
+        catch (System.Exception)
         {
-            termA = 0;
-            termB = 0;
+
+            inputFieldTermB.GetComponent<InputField>().image.color = Color.red;
+            inputFieldTermB.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "falsch";
+            inputFieldTermB.text = "";
+
         }
-        CheckAddition(termA, termB); //ruft die Additionsfunktion auf
+     
+
+
+           txtResult.text = CheckAddition(termA, termB).ToString();
+        //ruft die Additionsfunktion auf
+
+        //string termA, termB;
+        //termA = inputFieldTermA.text;
+        //termB = inputFieldTermB.text;
+
+
     }
 
     public void ResetAll()
@@ -47,9 +83,15 @@ public class MainSceneController : MonoBehaviour
         inputFieldTermB.text = "";
         termA = 0;
         termB = 0;
+        Color newColor = new Color(222, 192, 203, 255);
+        inputFieldTermA.GetComponent<InputField>().image.color = newColor;
+        inputFieldTermB.GetComponent<InputField>().image.color = newColor;
+        inputFieldTermA.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Ganze Zahl eingeben";
+        inputFieldTermB.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Ganze Zahl eingeben";
     }
     void Update()
     {
+
 
     }
 }
